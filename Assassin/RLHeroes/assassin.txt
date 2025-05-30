@@ -11,7 +11,7 @@
 	"Icon" "Asst_Banner_Ranger"
 	"Background" "hero_roster_legend_bg_forest"
 	"UnitOnMap" "Asst_Party_SylvanElf"
-	"PortraitBackgroundColor" "cd7332"
+	"PortraitBackgroundColor" "d34a00"
 
 	"stats"
 	{
@@ -51,7 +51,7 @@
 		"3"
 		{
 			"1" "assassin_backstab"
-			"2" "assassin_quickstep"
+			"2" "assassin_sneak_attack"
 		}
 	}
 
@@ -100,8 +100,8 @@
 		"health_max" "7"
 		"armor_max" "0"
 		"armor_regen_per_turn" "2"
-		"baseDamage" "8"
+		"baseDamage" "9"
 		"evasion" "0.4"
-		"walkSpeed" "4"
+		"walkSpeed" "3"
 	}
 }

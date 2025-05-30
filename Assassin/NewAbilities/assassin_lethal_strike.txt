@@ -5,8 +5,8 @@
     "AbilityCastRange" "stat(%CASTER, #meleeRange)"
     "AbilityCooldown"   "0"
     "AbilityAPCost"     "stat(%CASTER, #attackCostAP)"
-    "AnimationID"   "Attack"
-    "Icon" "Slash"
+    "AnimationID"       "Attack"
+    "Icon"              "Lethal Strike"
     "CastFXId" "CommonSlashSoundFXMega"
 
     "AbilitySpecial" 
@@ -14,13 +14,13 @@
         "01"
         {
             "var_type"      "FIELD_EXPRESSION"
-            "MinDamage"     "stat(%CASTER, #attackDamage)-1"
+            "MinDamage"     "ceil(stat(%CASTER, #attackDamage)/2)+1"
         }
 
         "02"
         {
             "var_type"      "FIELD_EXPRESSION"        
-            "MaxDamage"     "stat(%CASTER, #attackDamage)+1"
+            "MaxDamage"     "ceil(stat(%CASTER, #attackDamage)/2)+3"
         }
 
         "03"
@@ -32,7 +32,7 @@
         "04"
         {
             "var_type"      "FIELD_EXPRESSION"
-            "epicDamage"    "ceil(stat(%CASTER, #attackDamage)/3)"
+            "epicDamage"    "floor(stat(%CASTER, #attackDamage)/2)"
         }
     }
 
@@ -69,15 +69,6 @@
                         "MarkHitLegendary"
                         {
                         }
-                    }
-
-                    "ElseActions"
-                    {
-                        "AddDamage"
-                        {
-                            "Type"          "DAMAGE_PHYSICAL"
-                            "Damage"        "expr(%extraDamage)"
-                        } 
                     }
                 }
             }
