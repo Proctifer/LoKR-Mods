@@ -432,7 +432,7 @@ do
 															children = {
 																{
 																	type = DialogType.Dialog,
-							                                    	text = || __D(58, "The necromancer grabbed their staff and chuckled.\n\n\"Defeating a greater evil will favor the greater good. You have my army!\""),
+							                                    	text = || __D(58, "The necromancer grabbed their staff and chuckled.\n\n\"Defeating a greater evil will favor the greater good! You have my army!\""),
 														    		who = || "mapCinematicId",
 														    		exit = true
 																}

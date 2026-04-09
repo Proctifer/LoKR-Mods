@@ -4,14 +4,14 @@
 
     "AbilityBehavior"       	"POINT_TARGET | POSITIVE_EFFECT | NEEDS_CLEAR_TERRAIN"
     "AbilityCastRange" 			"stat(%CASTER, #rangedAttackRange) - 2"
-    "AbilityCooldown"      		"3"
+    "AbilityCooldown"      		"4"
     "AbilityPrewarmCooldown"	"1"
     "AbilityAPCost"       		"2"
 
 
     "AnimationID"               "SpecialAttack"
     "CastFXId"                  "GenericNaturaCastSummonFXMega"
-    "Icon"                      "VenomousEmbrace"
+    "Icon"                      "FreshMeat"
 
      "AbilitySpecial"
     {
