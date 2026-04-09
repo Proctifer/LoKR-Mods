@@ -1,6 +1,8 @@
 # LoKR-Mods
 _This is a repository where mods for Legends of Kingdom Rush can be found._
 
+**IMPORTANT NOTE:** If you have installed modded characters with the same names as ones in this package, please REMOVE them from the `Mods` folder before installing these characters. If you do not do this, then it will cause issues in your game.
+
 
 ## 1. Right click on LoKR in your Steam libarary and browse local files
 ![go to Steam library](https://github.com/user-attachments/assets/fba6cf8b-7fd6-4695-9180-d4813f23449b)
@@ -13,7 +15,7 @@ _This is a repository where mods for Legends of Kingdom Rush can be found._
 
 ## 3. Download the zip file from this repository.
 
-### Click here to download: https://github.com/Proctifer/LoKR-Mods/archive/refs/heads/main.zip
+ **Click here to download:** https://github.com/Proctifer/LoKR-Mods/archive/refs/heads/main.zip
 
 
 ## 4. Extract the `LoKR-Mods-main` zip folder then put the files into the `Mods` folder
