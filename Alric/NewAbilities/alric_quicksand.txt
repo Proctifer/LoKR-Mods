@@ -1,0 +1,174 @@
+"alric_quicksand"
+{
+    "AbilityBehavior"               "POINT_TARGET | AOE | NEEDS_CLEAR_TERRAIN"
+    "AbilityAOETeamFilter"          "TEAM_ENEMY"
+    "AnimationID"                   "SpecialAttack"
+    "CastFXId"                      "OlochSealOfImmolationCastFXMega"
+    "Icon"                          "Sandpit"
+    "AbilityAOEKind"                "RANGE_CIRCLE"
+    "AbilityAOECenterOnCaster"      "0"
+    "AbilityAOEAffectsCaster"       "1"
+    "AbilityAOERange"               "%aoeRadius"
+    "AbilityCastRange"              "stat(%CASTER, #rangedAttackRange)"
+    "AbilityCooldown"               "4"
+    "AbilityAPCost"                 "2"
+
+    "AbilitySpecial"
+    {
+        "01"
+        {
+            "var_type"            "FIELD_FLOAT"
+            "aoeRadius"           "1"
+        }
+
+        "02"
+        {
+            "var_type"            "FIELD_EXPRESSION"
+            "damage"              "ceil(stat(%CASTER,#attackDamage)/2)"
+        }
+        
+        "03" 
+        {
+            "var_type"            "FIELD_FLOAT"
+            "rootDuration"        "2"
+        }
+    }
+
+    "OnAbilityAction"
+    {
+        "ActOnHexas"
+        {
+            "Center"                 "positionHex(%TARGET)"
+            "Range"                  "%aoeRadius"
+            "IteratorName"           "#hexa"
+        
+            "Actions"
+            {
+                "AttachEffect"
+                {
+                    "EffectName"    "WoodBreakFXMega"
+                    "Target"        "hexPosition(%hexa)"
+                }
+
+                "Delay"
+                {
+                    "Time" "0.3"
+                    "Actions"
+                    {
+                        "AttachEffect"
+                        {
+                            "EffectName"    "WoodBreakFXMega"
+                            "Target"        "hexPosition(%hexa)"
+                        }
+                    }
+                }
+            }
+        }
+        
+        "StartLogicTick"
+        {
+            "Time"          "1"
+            "TickType"      "ActiveUnit"
+            "Position"      "unitPosition(%SOURCE)"
+        }
+        
+        "PlaySound"
+        {
+            "Sound" "#krl_sfx_bravebarkCombat_seismicPound"
+        }
+
+        "SetToContext"
+        {
+            "Context"           "unitContext(%CASTER)"
+            "Key"               "#sourcePosition"
+            "Value"             "unitPosition(%SOURCE)"
+            "Type"              "FIELD_OBJECT"
+        }
+
+        "SetToContext"
+        {
+            "Context"           "unitContext(%CASTER)"
+            "Key"               "#targetPosition"
+            "Value"             "%TARGET"
+            "Type"              "FIELD_OBJECT"
+        }
+
+        "AttachEffect"
+        {
+            "EffectName"        "OlochBurningClawHitFXMega"
+            "Target"            "wrapContext(unitContext(%CASTER), %sourcePosition)"
+        }
+
+        "Delay"
+        {
+            "Time" "0.4"
+            "Actions"
+            {
+                "StartLogicTick"
+                {
+                    "Time"              "1"
+                    "TickType"          "PriorityCenter"
+                    "Position"          "wrapContext(unitContext(%CASTER), %targetPosition)"
+                }
+
+                "MoveUnit"
+                {
+                    "Target"            %SOURCE"
+                    "Position"          "newPoint(1000, 1000, 0)"
+                }
+
+                "Delay"
+                {
+                    "Time" "0.5"
+                    "Actions"
+                    {
+                        "MoveUnit"
+                        {
+                            "Target"            "%SOURCE"
+                            "Position"          "wrapContext(unitContext(%CASTER), %targetPosition)"
+                        }
+                    }
+                }
+                
+                "ActOnTargets"
+                {
+                    "Target"
+                    {
+                        "Center"           "%TARGET"
+                        "Radius"           "%aoeRadius"
+                        "Teams"            "TEAM_ENEMY"
+                    }
+                    
+                    "IteratorName"         "#newTarget"
+                
+                    "Actions"    
+                    {
+                        "Hit"
+                        {
+                            "Target"        "%newTarget"
+                            "Tags"          "stringList(#MAGICAL, #AOE)"
+
+                            "Actions"
+                            {
+                                "Knockback" 
+                                {
+                                    "Target"    "%HITTARGET"
+                                    "Center"    "wrapContext(unitContext(%CASTER), %targetPosition)"
+                                    "Strength"  "1"
+                                }
+
+                                "ApplyModifier"
+                                {
+                                    "ModifierName"      "modifier_rooted"
+                                    "Target"            "%newTarget"
+                                    "Duration"          "%rootDuration"
+                                    "Refresh"           "1"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

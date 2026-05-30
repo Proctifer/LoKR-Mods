@@ -18,26 +18,32 @@
     {
         "01"
         {
-            "var_type" "FIELD_EXPRESSION"
-            "MinRangedDmg"  "stat(%CASTER, #attackDamage)*0"
+            "var_type"          "FIELD_EXPRESSION"
+            "MinRangedDmg"      "stat(%CASTER, #attackDamage)*0"
         }
 
         "02"
         {
-            "var_type" "FIELD_EXPRESSION"        
-            "MaxRangedDmg"  "stat(%CASTER, #attackDamage)*0"
+            "var_type"          "FIELD_EXPRESSION"        
+            "MaxRangedDmg"      "stat(%CASTER, #attackDamage)*0"
         }
 
         "03"
         {
-            "var_type"              "FIELD_FLOAT"
-            "duration"              "3"
+            "var_type"          "FIELD_FLOAT"
+            "duration"          "2"
         }
 
         "04"
         {
-            "var_type"              "FIELD_INTEGER"
-            "extraDamagePerHit"     "3"
+            "var_type"          "FIELD_INTEGER"
+            "extraDamagePerHit" "3"
+        }
+
+        "04"
+        {
+            "var_type"          "FIELD_INTEGER"
+            "bossDamage"        "2"
         }
     }
 
@@ -51,12 +57,12 @@
 			{
 				"TrackingProjectile"
 				{
-					"Target"               "%TARGET"
+					"Target"               	"%TARGET"
 					"SourcePos"             "unitPosition(%SOURCE, #CastPoint)"
 					"TargetPos"             "unitPosition(%TARGET, #Chest)"
-					"Model" "SleepingArrowProjectile"
-					"WillHit" "hitChanceCalc(%TARGET)"
-					"MissPosition" "unitPosition(%TARGET)"
+					"Model" 				"EmptyProjectile"
+					"WillHit" 				"hitChanceCalc(%TARGET)"
+					"MissPosition" 			"unitPosition(%TARGET)"
 
 					"Params" 
 					{
@@ -76,9 +82,9 @@
 
         "Hit"
         {
-            "Target" "%TARGET"
-            "EffectName" "OrcHunterSleepingArrowHitFXMega" 
-            "Tags" "stringList(#PROJECTILE, #TARGETED)"
+            "Target" 			"%TARGET"
+            "EffectName" 		"OrcHunterSleepingArrowHitFXMega" 
+            "Tags" 				"stringList(#PROJECTILE, #TARGETED)"
 
             "InitActions"
             {
@@ -151,10 +157,25 @@
 
             "OnHitPreProcessDamages"
             {
-                "AddDamage"
+                "Conditional"
                 {
-                    "Type"              "DAMAGE_PHYSICAL"
-                    "Damage"            "%extraDamagePerHit"
+                    "Condition" "isOnState(%TARGET, #BOSS)"
+                    "Actions"
+                    {
+                        "AddDamage"
+                        {
+                            "Type"              "DAMAGE_PHYSICAL"
+                            "Damage"            "%bossDamage"
+                        }
+                    }
+                    "ElseActions"
+                    {
+                        "AddDamage"
+                        {
+                            "Type"              "DAMAGE_PHYSICAL"
+                            "Damage"            "%extraDamagePerHit"
+                        }
+                    }
                 }
 				
 				"AttachEffect"
